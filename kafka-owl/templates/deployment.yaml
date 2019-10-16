@@ -1,0 +1,80 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "kafka-owl.fullname" . }}
+  labels:
+{{ include "kafka-owl.labels" . | indent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ include "kafka-owl.name" . }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ include "kafka-owl.name" . }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          args: [
+            "--server.http.listen-port={{ .Values.server.http.listenPort }}",
+            "--logging.level={{ .Values.logging.level }}",
+
+            {{- with .Values.kafka }}
+            "--kafka.brokers={{ required "kafka.brokers must be set" .brokers }}",
+            "--kafka.version={{ .version }}",
+            "--kafka.client-id={{ .clientId }}",
+            {{- end }}
+
+            {{- if .Values.kafka.sasl.enabled }}
+            {{- with .Values.kafka.sasl }}
+            "--kafka.sasl.enabled={{ .enabled }}",
+            "--kafka.sasl.use-handshake={{ .useHandshake }}",
+            "--kafka.sasl.username={{ required "kafka.sasl.username must be set" .username }}",
+            "--kafka.sasl.password={{ required "kafka.sasl.password must be set" .password }}",
+            {{- end }}
+            {{- end }}
+
+            {{- if .Values.kafka.tls.enabled }}
+            {{- with .Values.kafka.tls }}
+            "--kafka.tls.enabled={{ .enabled }}",
+            "--kafka.tls.insecure-skip-verify={{ .insecureSkipVerify }}",
+            {{- end }}
+            {{- end }}
+          ]
+
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /admin/health
+              port: http
+          readinessProbe:
+            initialDelaySeconds: 10 # need to wait for keepAlive to connect us to all brokers
+            httpGet:
+              path: /admin/health
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
