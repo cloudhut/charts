@@ -16,10 +16,19 @@ spec:
         app.kubernetes.io/name: {{ include "kafka-owl.name" . }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
-    {{- with .Values.imagePullSecrets }}
+      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
-    {{- end }}
+      {{- end }}
+
+      {{- if .Values.kafka.tls.enabled }}
+      volumes:
+      - name: kafka-certificates
+        secret:
+          defaultMode: 420
+          secretName: {{- include "kafka-owl.tlsSecretName" . }}
+      {{- end }}
+
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -38,8 +47,8 @@ spec:
             {{- with .Values.kafka.sasl }}
             "--kafka.sasl.enabled={{ .enabled }}",
             "--kafka.sasl.use-handshake={{ .useHandshake }}",
-            "--kafka.sasl.username={{ required "kafka.sasl.username must be set" .username }}",
-            "--kafka.sasl.password={{ required "kafka.sasl.password must be set" .password }}",
+            "--kafka.sasl.username=$(KAFKA_SASL_USERNAME)",
+            "--kafka.sasl.password=$(KAFKA_SASL_PASSWORD)",
             {{- end }}
             {{- end }}
 
@@ -47,6 +56,10 @@ spec:
             {{- with .Values.kafka.tls }}
             "--kafka.tls.enabled={{ .enabled }}",
             "--kafka.tls.insecure-skip-verify={{ .insecureSkipVerify }}",
+            "--kafka.tls.ca-file-path=/etc/kafka-owl/certificates/ca",
+            "--kafka.tls.cert-file-path=/etc/kafka-owl/certificates/cert",
+            "--kafka.tls.key-file-path=/etc/kafka-owl/certificates/key",
+            "--kafka.tls.passphrase=$(KAFKA_TLS_PASSPHRASE)",
             {{- end }}
             {{- end }}
           ]
@@ -66,10 +79,37 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          
+          {{- if .Values.kafka.tls.enabled }}
+          volumeMounts:
+            - name: kafka-certificates
+              mountPath: /etc/kafka-owl/certificates
+          {{- end }}
+
+          env:
+            - name: KAFKA_SASL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "kafka-owl.saslSecretName" . }}
+                  key: username
+            - name: KAFKA_SASL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "kafka-owl.saslSecretName" . }}
+                  key: password
+            {{- if .Values.kafka.tls.enabled }}
+            - name: KAFKA_TLS_PASSPHRASE
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "kafka-owl.tlsSecretName" . }}
+                  key: passphrase
+            {{- end }}
+
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+
     {{- with .Values.affinity }}
       affinity:
         {{- toYaml . | nindent 8 }}

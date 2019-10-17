@@ -43,3 +43,20 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
+
+{{/*
+Since the user can specify either the name of a kubernetes secret,
+or specify values for their 'ca', 'cert', and 'key' directly (for which we will generate a kubernetes secret then),
+we can't know the name of the secret in advance.
+So this method finds the correct name 
+*/}}
+{{- define "kafka-owl.tlsSecretName" -}}
+{{- default "kafka-owl-tls-certificates" .Values.kafka.tls.existingSecretName -}}
+{{- end -}}
+
+{{/*
+Same thing as 'kafka-owl.tlsSecretName', but for sasl instead.
+*/}}
+{{- define "kafka-owl.saslSecretName" -}}
+{{- default "kafka-owl-sasl-credentials" .Values.kafka.sasl.existingSecretName -}}
+{{- end -}}
