@@ -87,6 +87,7 @@ spec:
           {{- end }}
 
           env:
+            {{- if .Values.kafka.sasl.enabled }}
             - name: KAFKA_SASL_USERNAME
               valueFrom:
                 secretKeyRef:
@@ -97,6 +98,7 @@ spec:
                 secretKeyRef:
                   name: {{ include "kafka-owl.saslSecretName" . }}
                   key: password
+            {{- end }}
             {{- if .Values.kafka.tls.enabled }}
             - name: KAFKA_TLS_PASSPHRASE
               valueFrom:
