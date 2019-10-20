@@ -82,7 +82,7 @@ spec:
 
           ports:
             - name: http
-              containerPort: {{ required "HTTP port for container must be set" .Values.server.http.listenPort }}}
+              containerPort: {{ required "HTTP port for container must be set" .Values.server.http.listenPort }}
               protocol: TCP
           livenessProbe:
             httpGet:
