@@ -16,7 +16,7 @@ image:
 # Kafka Owl Settings
 server:
   http:
-    listenPort: 80
+    listenPort: 8080
 
 logging:
   level: "info" # info, debug, warn, error, panic, fatal
