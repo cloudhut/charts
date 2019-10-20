@@ -21,7 +21,7 @@ helm install --name=kafka-owl kafka-owl/kafka-owl
 | `image.repository` | Docker image repository | `quay.io/kafka-owl/kafka-owl` |
 | `image.tag` | Docker image tag | `latest` |
 | `image.pullPolicy` | Under which circumstance the Kubelet shall download the image | `IfNotPresent` |
-| `server.http.listenPort` | HTTP Port to listen on for the Kafka Owl Backend | `80` |
+| `server.http.listenPort` | HTTP Port to listen on for the Kafka Owl Backend | `8080` |
 | `logging.level` | Log messages only with the given severity or above. Valid levels: [debug, info, warn, error] | `info` |
 | `kafka.brokers` | Kafka Broker addresses (comma separated) | (no default) |
 | `kafka.version` | The kafka cluster's version (e. g. \"2.3.0\") | `0.11.0.2` |
