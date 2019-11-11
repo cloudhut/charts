@@ -55,7 +55,6 @@ spec:
 
             {{- with .Values.kafka }}
             "--kafka.brokers={{ required "kafka.brokers must be set" .brokers }}",
-            "--kafka.version={{ .version }}",
             "--kafka.client-id={{ .clientId }}",
             {{- end }}
 

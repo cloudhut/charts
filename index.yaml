@@ -3,11 +3,20 @@ entries:
   kafka-owl:
   - apiVersion: v1
     appVersion: "1.0"
-    created: "2019-10-20T11:59:50.7332871+02:00"
+    created: "2019-11-11T19:03:48.4782567+01:00"
+    description: A Helm chart for Kubernetes
+    digest: 75d74b757521ab601c2d92a285f21a54dc649c9adcc601820177fbb0327f1fb7
+    name: kafka-owl
+    urls:
+    - kafka-owl-0.1.6.tgz
+    version: 0.1.6
+  - apiVersion: v1
+    appVersion: "1.0"
+    created: "2019-11-11T19:03:48.4782567+01:00"
     description: A Helm chart for Kubernetes
     digest: a6ae3dfb0fb2656afd65f1617c5ae2607f1a75fba452cb86cf813d48340b203e
     name: kafka-owl
     urls:
     - kafka-owl-0.1.5.tgz
     version: 0.1.5
-generated: "2019-10-20T11:59:50.7322891+02:00"
+generated: "2019-11-11T19:03:48.4782567+01:00"

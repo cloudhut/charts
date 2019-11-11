@@ -23,7 +23,6 @@ logging:
 
 kafka:
   # brokers:
-  version: "0.11.0.2"
   clientId: "kafka-owl"
   sasl:
     enabled: false
