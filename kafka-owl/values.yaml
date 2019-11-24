@@ -10,7 +10,7 @@ fullnameOverride: ""
 imagePullSecrets: []
 image:
   repository: quay.io/kafka-owl/kafka-owl
-  tag: latest
+  tag: v1.0.0
   pullPolicy: IfNotPresent
 
 # Kafka Owl Settings
