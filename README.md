@@ -24,7 +24,6 @@ helm install --name=kafka-owl kafka-owl/kafka-owl
 | `server.http.listenPort` | HTTP Port to listen on for the Kafka Owl Backend | `8080` |
 | `logging.level` | Log messages only with the given severity or above. Valid levels: [debug, info, warn, error] | `info` |
 | `kafka.brokers` | Kafka Broker addresses (comma separated) | (no default) |
-| `kafka.version` | The kafka cluster's version (e. g. \"2.3.0\") | `0.11.0.2` |
 | `kafka.client-id` | ClientID to identify the consumer | `kafka-owl` |
 | `kafka.sasl.enabled` | Whether or not to use SASL authentication | `false` |
 | `kafka.sasl.useHandshake` | Whether or not to send a SASL handshake first | `true` |
