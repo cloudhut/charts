@@ -33,7 +33,7 @@ spec:
       - name: kafka-certificates
         secret:
           defaultMode: 420
-          secretName: {{- include "kafka-owl.tlsSecretName" . }}
+          secretName: {{ include "kafka-owl.tlsSecretName" . }}
       {{- end }}
 
       {{- if .Values.podSecurityContext }}
