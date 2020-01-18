@@ -1,13 +1,13 @@
-# Kafka Owl Helm Chart
+# Helm Charts
 
-Helm chart for deployment of Kafka Owl
+This repository contains helm charts for all CloudHut products. As of now there's only the Kafka Owl helm chart which is documented below.
 
-## Intalling the chart
+## Intalling the Kafka Owl chart
 
 ```
-helm repo add kafka-owl https://raw.githubusercontent.com/kafka-owl/helm-chart/master
+helm repo add cloudhut https://raw.githubusercontent.com/cloudhut/charts/master
 helm repo update
-helm install --name=kafka-owl kafka-owl/kafka-owl
+helm install --name=kafka-owl cloudhut/kafka-owl
 ```
 
 ## Chart configuration
