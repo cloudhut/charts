@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "kowl.fullname" . }}
+  labels:
+    {{- include "kowl.labels" . | nindent 4 }}
+spec:
+{{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+{{- end }}
+  selector:
+    matchLabels:
+      {{- include "kowl.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      annotations:
+        checksum/config: {{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}
+      labels:
+        {{- include "kowl.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ include "kowl.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: configs
+          configMap:
+            name: {{ include "kowl.fullname" . }}
+        - name: secrets
+          secret:
+            secretName: {{ include "kowl.secretName" . }}
+      containers:
+        - name: {{ .Chart.Name }}
+          args:
+            - "--config.filepath=/etc/kowl/configs/config.yaml"
+            - "--kafka.sasl.password=$(KAFKA_SASL_PASSWORD)"
+            - "--kafka.tls.passphrase=$(KAFKA_TLS_PASSPHRASE)"
+            {{- if and (not .Values.kowl.config.cloudhut) (eq .Values.image.repository "quay.io/cloudhut/kowl-business") }}
+            - "--cloudhut.license-token=$(CLOUDHUT_LICENSE_TOKEN)"
+            {{- end }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: configs
+              mountPath: /etc/kowl/configs
+              readOnly: true
+            - name: secrets
+              mountPath: /etc/kowl/secrets
+              readOnly: true
+          ports:
+            - name: http
+              containerPort: {{ include "kowl.serverListenPort" . }}
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /admin/health
+              port: http
+          readinessProbe:
+            # Give Kowl initially some time to connect to all Kafka Brokers
+            initialDelaySeconds: 10
+            httpGet:
+              path: /admin/health
+              port: http
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+          env:
+            - name: KAFKA_SASL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "kowl.secretName" . }}
+                  key: kafka-sasl-password
+            - name: KAFKA_TLS_PASSPHRASE
+              valueFrom:
+               secretKeyRef:
+                 name: {{ include "kowl.secretName" . }}
+                 key: kafka-tls-passphrase
+            - name: CLOUDHUT_LICENSE_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "kowl.secretName" . }}
+                  key: kafka-sasl-password
+            - name: LOGIN_GOOGLE_CLIENT_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "kowl.secretName" . }}
+                  key: login-google-oauth-client-secret
+            - name: LOGIN_GITHUB_CLIENT_SECRET
+              valueFrom:
+               secretKeyRef:
+                 name: {{ include "kowl.secretName" . }}
+                 key: login-github-oauth-client-secret
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "kafka-owl.fullname" . }}
+  name: {{ include "kowl.fullname" . }}
   labels:
-{{ include "kafka-owl.labels" . | indent 4 }}
+    {{- include "kowl.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,5 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    app.kubernetes.io/name: {{ include "kafka-owl.name" . }}
-    app.kubernetes.io/instance: {{ .Release.Name }}
+    {{- include "kowl.selectorLabels" . | nindent 4 }}
