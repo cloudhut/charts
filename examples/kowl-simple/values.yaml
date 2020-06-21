@@ -1,0 +1,16 @@
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 10m
+    memory: 64Mi
+
+kowl:
+  # See reference config: https://github.com/cloudhut/kowl/blob/master/docs/config/kowl.yaml)
+  config:
+    kafka:
+      brokers:
+        - kafka-0.kafka-headless:9092
+        - kafka-1.kafka-headless:9092
+        - kafka-2.kafka-headless:9092
