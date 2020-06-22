@@ -39,6 +39,7 @@ helm install --name=kafka-owl cloudhut/kafka-owl
 | `kafka.tls.insecure-skip-verify` | If InsecureSkipVerify is true, TLS accepts any certificate presented by the server and any host name in that certificate. | `false` |
 | `service.type` | Service Type | `ClusterIP` |
 | `service.port` | Service Port | `80` |
+| `service.annotations` | Service Annotations | `{}` |
 | `ingress.enabled` | Whether or not to create an Ingress resource | `false` |
 | `ingress.annotations` | Ingress annotations | `{}` |
 | `ingress.hosts` | Ingress hosts | (sample Ingress host) |
