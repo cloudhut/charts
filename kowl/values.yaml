@@ -90,7 +90,8 @@ kowl:
 
 secret:
   # existingSecret can be used if you create the secret with the needed key value pairs on your own. Specify the
-  # secret name here and it will be used. Please make sure you use the below key names.
+  # secret name here and it will be used. Please make sure you specify all the below key names even if you don't need them.
+  # Take a look at /examples/secret.yaml to create the secret.
   # Valid secret keys are (some only apply for the business version of Kowl):
   #  - kafka-sasl-password
   #  - kafka-tls-ca

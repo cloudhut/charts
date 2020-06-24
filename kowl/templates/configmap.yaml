@@ -10,10 +10,12 @@ data:
 
   {{- if .Values.kowl.roles }}
   roles.yaml: |
-    {{ "kowl.roles is required" .Values.kowl.roles }}
+    roles:
+      {{- toYaml .Values.kowl.roles | nindent 6 }}
   {{- end }}
 
   {{- if .Values.kowl.roleBindings }}
   role-bindings.yaml: |
-    {{ "kowl.roleBindings is required" .Values.kowl.roleBindings }}
+    roleBindings:
+      {{- toYaml .Values.kowl.roleBindings | nindent 6 }}
   {{- end }}

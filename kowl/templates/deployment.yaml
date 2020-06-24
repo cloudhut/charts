@@ -38,8 +38,13 @@ spec:
             - "--config.filepath=/etc/kowl/configs/config.yaml"
             - "--kafka.sasl.password=$(KAFKA_SASL_PASSWORD)"
             - "--kafka.tls.passphrase=$(KAFKA_TLS_PASSPHRASE)"
-            {{- if and (not .Values.kowl.config.cloudhut) (eq .Values.image.repository "quay.io/cloudhut/kowl-business") }}
+            {{- if eq .Values.image.repository "quay.io/cloudhut/kowl-business" }}
+            - "--login.jwt-secret=$(LOGIN_JWT_SECRET)"
+            - "--login.google.client-secret=$(LOGIN_GOOGLE_CLIENT_SECRET)"
+            - "--login.github.client-secret=$(LOGIN_GITHUB_CLIENT_SECRET)"
+            {{- if not .Values.kowl.config.cloudhut }}
             - "--cloudhut.license-token=$(CLOUDHUT_LICENSE_TOKEN)"
+            {{- end }}
             {{- end }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
@@ -83,7 +88,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ include "kowl.secretName" . }}
-                  key: kafka-sasl-password
+                  key: cloudhut-license-token
+            - name: LOGIN_JWT_SECRET
+              valueFrom:
+               secretKeyRef:
+                 name: {{ include "kowl.secretName" . }}
+                 key: login-jwt-secret
             - name: LOGIN_GOOGLE_CLIENT_SECRET
               valueFrom:
                 secretKeyRef:

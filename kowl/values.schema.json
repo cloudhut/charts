@@ -12,11 +12,11 @@
         },
         "roles": {
           "description": "Roles for Kowl Business",
-          "type": "object"
+          "type": "array"
         },
         "roleBindings": {
           "description": "Role Bindings for Kowl Business",
-          "type": "object"
+          "type": "array"
         }
       }
     }
