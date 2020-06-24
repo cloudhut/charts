@@ -1,0 +1,62 @@
+image:
+  repository: quay.io/cloudhut/kowl-business
+  tag: v1.0.0
+
+fullnameOverride: kowl-business
+
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 10m
+    memory: 64Mi
+
+secret:
+  existingSecret: kowl-business
+
+kowl:
+  # Config is required for Kowl and Kowl Business.
+  # See reference config: https://github.com/cloudhut/kowl/blob/master/docs/config/kowl.yaml)
+  config:
+    kafka:
+      brokers:
+        - kafka-0.kafka-headless:9092
+        - kafka-1.kafka-headless:9092
+        - kafka-2.kafka-headless:9092
+    login:
+      github:
+        enabled: true
+        clientId: Iv1.redacted
+        appId: 52000
+        installationId: 6718000
+        privateKeyFilepath: /etc/kowl/secrets/login-github-private-key.pem # Secret key is always mounted under that path
+    business:
+      rolesFilepath: /etc/kowl/configs/roles.yaml # YAML file is always mounted under that path
+      roleBindingsFilepath: /etc/kowl/configs/role-bindings.yaml # YAML file is always mounted under that path
+      auditLog:
+        enabled: true
+
+  roles:
+    - name: developer
+      permissions:
+        - resource: consumerGroups
+          includes: ["/.*/"]
+          allowedActions: ["admin"]
+        - resource: topics
+          includes: ["/.*/"]
+          excludes: ["battle-logs"]
+          allowedActions: ["viewer"]
+        - resource: topics
+          includes: ["battle-logs"]
+          allowedActions: ["seeTopic", "viewPartitions", "viewConfig"]
+
+  roleBindings:
+    - metadata:
+        name: Kowl Developers
+      subjects:
+        - kind: group
+          provider: GitHub
+          name: kafka-owl-developers
+          organization: cloudhut
+      roleName: admin
