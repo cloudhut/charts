@@ -18,6 +18,7 @@ jobs:
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
       - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.0.0-rc.1
+        uses: cloudhut/chart-releaser-action@master
         with:
+          charts_dir: .
           charts_repo_url: https://cloudhut.github.io/charts
