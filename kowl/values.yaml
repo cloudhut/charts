@@ -106,15 +106,18 @@ secret:
   #  - login-github-oauth-client-secret
   #  - login-github-private-key.pem
   existingSecret:
-  # Kafka secret values in case you want the chart to create a secret
+  # Secret values in case you want the chart to create a secret
+  # Kafka secrets
   kafka: {}
     # saslPassword:
     # tlsCa:
     # tlsCert:
     # tlsKey:
     # tlsPassphrase:
+  # CloudHut secrets (business version)
   cloudhut: {}
     # licenseToken:
+  # SSO secrets (business version)
   login:
     google: {}
       # clientSecret:
