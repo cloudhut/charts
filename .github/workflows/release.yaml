@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - master
+# on:
+#   release:
+#     types: [published]
 
 jobs:
   release:
@@ -17,8 +20,17 @@ jobs:
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
 
-      - name: Run chart-releaser
-        uses: cloudhut/chart-releaser-action@master
+      - name: Helm Package
+        run: |
+          helm package ./kowl
+
+      - name: Helm Index
+        run: |
+          helm repo index . --merge index.yaml
+
+      - name: Commit and push
+        run: |
+          ls
+          echo "test"
         with:
-          charts_dir: charts
-          charts_repo_url: https://cloudhut.github.io/charts
+          #repo-token: ${{ secrets.GITHUB_TOKEN }}
