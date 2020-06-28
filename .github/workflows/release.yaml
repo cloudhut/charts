@@ -20,7 +20,7 @@ jobs:
 
       - name: Helm Index
         run: |
-          helm repo index ./archives --merge index.yaml
+          helm repo index ./archives --merge .archives/index.yaml
 
       - name: Commit and push
         run: |
