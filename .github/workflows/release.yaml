@@ -12,13 +12,7 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-
-      - name: Configure Git
-        run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+      - uses: actions/checkout@v2
 
       - name: Helm Package
         run: |
@@ -28,12 +22,21 @@ jobs:
         run: |
           helm repo index . --merge index.yaml
 
-      - name: Commit and push
-        run: |
-          echo " "
-          ls
-          echo " "
-          cat index.yaml
-          echo " "
-        # with:
-          #repo-token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Print Debug Info
+      #   run: |
+      #     echo " "
+      #     echo "ls content:"
+      #     ls
+      #     echo " "
+      #     echo "content of index.yaml:"
+      #     cat index.yaml
+      #     echo " "
+
+     - name: Commit and push
+       run: |
+        git config user.name "GitHub Action ($GITHUB_ACTOR)"
+        git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+        git add --all
+        git commit -m  '[Auto Commit] New helm chart / helm repo index.yaml'
+        git push
+
