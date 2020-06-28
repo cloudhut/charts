@@ -16,11 +16,11 @@ jobs:
 
       - name: Helm Package
         run: |
-          helm package ./kowl
+          helm package ./kowl -d ./archives
 
       - name: Helm Index
         run: |
-          helm repo index . --merge index.yaml
+          helm repo index ./archives --merge index.yaml
 
       - name: Commit and push
         run: |
