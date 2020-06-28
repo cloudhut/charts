@@ -30,7 +30,10 @@ jobs:
 
       - name: Commit and push
         run: |
+          echo " "
           ls
-          echo "test"
+          echo " "
+          cat index.yaml
+          echo " "
         # with:
           #repo-token: ${{ secrets.GITHUB_TOKEN }}
