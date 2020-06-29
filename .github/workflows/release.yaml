@@ -4,21 +4,29 @@ on:
   push:
     branches:
       - master
+# on:
+#   release:
+#     types: [published]
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
+      - uses: actions/checkout@v2
 
-      - name: Configure Git
+      - name: Helm Package
         run: |
-          git config user.name "$GITHUB_ACTOR"
-          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          helm package ./kowl -d ./archives
 
-      - name: Run chart-releaser
-        uses: cloudhut/chart-releaser-action@master
-        with:
-          charts_dir: kowl
-          charts_repo_url: https://cloudhut.github.io/charts
+      - name: Helm Index
+        run: |
+          helm repo index ./archives --merge .archives/index.yaml
+
+      - name: Commit and push
+        run: |
+          git config user.name "GitHub Action ($GITHUB_ACTOR)"
+          git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git add --all
+          git commit -m  '[Auto Commit] New helm chart / helm repo index.yaml'
+          git push
+
