@@ -57,3 +57,24 @@ helm install -f values.yaml --name=kowl cloudhut/kowl
 | `login.google.clientSecret` | Google OAuth client secret (business) | (none) |
 | `login.github.clientSecret` | GitHub OAuth client secret (business) | (none) |
 | `login.github.privateKey` | GitHub app private key (business) | (none) |
+
+Further documentation can be found in the [examples](./examples).
+
+### Kowl Config / Mounted secrets
+
+With this chart you can specify the whole YAML config for Kowl (Business). This includes path to files which may be mounted by this chart. This is the list of static paths which you may need to specify in the config in case you use them:
+
+| Type | Path |
+| --- | --- |
+| Config | `/etc/kowl/configs/config.yaml` |
+| Roles | `/etc/kowl/configs/roles.yaml` |
+| Role Bindings | `/etc/kowl/configs/role-bindings.yaml` |
+| Kafka TLS CA | `/etc/kowl/secrets/kafka-tls-ca` |
+| Kafka TLS Cert | `/etc/kowl/secrets/kafka-tls-cert` |
+| Kafka TLS Key | `/etc/kowl/secrets/kafka-tls-key` |
+| Google Groups Service Account | `/etc/kowl/secrets/login-google-groups-service-account.json` |
+| GitHub app private key | `/etc/kowl/secrets/login-github-private-key.pem` |
+
+### Using an existing secret
+
+If you prefer to use an existing secret rather than creating a new one with this chart you **must** specify all keys. Please take a look at the [sample manifest](./examples/secret.yaml).
