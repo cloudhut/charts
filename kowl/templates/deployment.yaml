@@ -84,11 +84,14 @@ spec:
                secretKeyRef:
                  name: {{ include "kowl.secretName" . }}
                  key: kafka-tls-passphrase
+            {{- if eq .Values.image.repository "quay.io/cloudhut/kowl-business" }}
+            {{- if not .Values.kowl.config.cloudhut }}
             - name: CLOUDHUT_LICENSE_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: {{ include "kowl.secretName" . }}
                   key: cloudhut-license-token
+            {{- end }}
             - name: LOGIN_JWT_SECRET
               valueFrom:
                secretKeyRef:
@@ -104,6 +107,7 @@ spec:
                secretKeyRef:
                  name: {{ include "kowl.secretName" . }}
                  key: login-github-oauth-client-secret
+            {{- end }}
 
       {{- with .Values.nodeSelector }}
       nodeSelector:
