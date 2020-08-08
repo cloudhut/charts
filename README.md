@@ -56,7 +56,7 @@ helm install -f values.yaml --name=kowl cloudhut/kowl
 | `secret.cloudhut.licenseToken` | License token for Kowl business (business) | (none) |
 | `login.google.clientSecret` | Google OAuth client secret (business) | (none) |
 | `login.github.clientSecret` | GitHub OAuth client secret (business) | (none) |
-| `login.github.privateKey` | GitHub app private key (business) | (none) |
+| `login.github.personalAccessToken` | GitHub personal access token (business) | (none) |
 
 Further documentation can be found in the [examples](./examples).
 
@@ -73,7 +73,6 @@ With this chart you can specify the whole YAML config for Kowl (Business). This 
 | Kafka TLS Cert | `/etc/kowl/secrets/kafka-tls-cert` |
 | Kafka TLS Key | `/etc/kowl/secrets/kafka-tls-key` |
 | Google Groups Service Account | `/etc/kowl/secrets/login-google-groups-service-account.json` |
-| GitHub app private key | `/etc/kowl/secrets/login-github-private-key.pem` |
 
 ### Using an existing secret
 

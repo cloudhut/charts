@@ -1,6 +1,6 @@
 image:
   repository: quay.io/cloudhut/kowl-business
-  tag: v1.0.0
+  tag: v1.1.0
 
 fullnameOverride: kowl-business
 
@@ -28,9 +28,7 @@ kowl:
       github:
         enabled: true
         clientId: Iv1.redacted
-        appId: 52000
-        installationId: 6718000
-        privateKeyFilepath: /etc/kowl/secrets/login-github-private-key.pem # Secret key is always mounted under that path
+        # personal access token and client secret are part of the existingSecret
     business:
       rolesFilepath: /etc/kowl/configs/roles.yaml # YAML file is always mounted under that path
       roleBindingsFilepath: /etc/kowl/configs/role-bindings.yaml # YAML file is always mounted under that path

@@ -42,6 +42,7 @@ spec:
             - "--login.jwt-secret=$(LOGIN_JWT_SECRET)"
             - "--login.google.client-secret=$(LOGIN_GOOGLE_CLIENT_SECRET)"
             - "--login.github.client-secret=$(LOGIN_GITHUB_CLIENT_SECRET)"
+            - "--login.github.directory.personal-access-token=$(LOGIN_GITHUB_PERSONAL_ACCESS_TOKEN)"
             {{- if not .Values.kowl.config.cloudhut }}
             - "--cloudhut.license-token=$(CLOUDHUT_LICENSE_TOKEN)"
             {{- end }}
@@ -107,6 +108,11 @@ spec:
                secretKeyRef:
                  name: {{ include "kowl.secretName" . }}
                  key: login-github-oauth-client-secret
+            - name: LOGIN_GITHUB_PERSONAL_ACCESS_TOKEN
+              valueFrom:
+               secretKeyRef:
+                 name: {{ include "kowl.secretName" . }}
+                 key: login-github-personal-access-token
             {{- end }}
 
       {{- with .Values.nodeSelector }}

@@ -104,7 +104,7 @@ secret:
   #  - login-google-oauth-client-secret
   #  - login-google-groups-service-account.json
   #  - login-github-oauth-client-secret
-  #  - login-github-private-key.pem
+  #  - login-github-personal-access-token
   existingSecret:
   # Secret values in case you want the chart to create a secret
   # Kafka secrets
@@ -124,4 +124,4 @@ secret:
     # groupsServiceAccount:
     github: {}
       # clientSecret:
-    # privateKey:
+    # personalAccessToken:
