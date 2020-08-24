@@ -24,6 +24,15 @@ kowl:
         - kafka-0.kafka-headless:9092
         - kafka-1.kafka-headless:9092
         - kafka-2.kafka-headless:9092
+      tls:
+        # Certificates are automatically mounted from my existing secret which has been created manually beforehand.
+        # See ../secret.yaml for a reference of the expected kubernetes secret.
+        # Below paths must exactly match the expected paths (see README.md)
+        enabled: true
+        caFilepath: /etc/kowl/secrets/kafka-tls-ca
+        certFilepath: /etc/kowl/secrets/kafka-tls-cert
+        keyFilepath: /etc/kowl/secrets/kafka-tls-key
+        # passphrase is set automatically populated from the existing secret via flags
     login:
       github:
         enabled: true
