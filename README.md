@@ -33,7 +33,7 @@ helm install -f values.yaml --name=kowl cloudhut/kowl
 | `ingress.enabled` | Whether or not to deploy an ingress | `false` |
 | `ingress.annotations` | Ingress annotations | `{}` |
 | `ingress.hosts[0].host` | Ingress hostname | `chart-example.local` |
-| `ingress.hosts[0].patghs` | Path within the url structure | `[]` |
+| `ingress.hosts[0].paths` | Path within the url structure | `[]` |
 | `ingress.tls` | TLS configuration for the ingress | `[]` |
 | `resources` | Resource configuration for deployment | `{}` |
 | `autoscaling.enabled` | Whether or not to deploy a horizontal pod autoscaler | `false` |
