@@ -79,3 +79,16 @@ Server Listen Port for Kowl
 8080
 {{- end }}
 {{- end }}
+
+{{- define "kowl.imagesRegistryName" -}}
+{{- $registryName := .Values.image.registry -}}
+{{- if .Values.global }}
+    {{- if .Values.global.imageRegistry }}
+        {{- printf "%s" .Values.global.imageRegistry -}}
+    {{- else -}}
+        {{- printf "%s" $registryName -}}
+    {{- end -}}
+{{- else -}}
+    {{- printf "%s" $registryName -}}
+{{- end -}}
+{{- end -}}
