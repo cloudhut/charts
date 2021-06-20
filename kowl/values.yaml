@@ -5,8 +5,9 @@
 replicaCount: 1
 
 image:
-  # Use "quay.io/cloudhut/kowl-business" for the business version
-  repository: quay.io/cloudhut/kowl
+  registry: quay.io
+  # Use "cloudhut/kowl-business" for the business version
+  repository: cloudhut/kowl
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
   tag: ""
