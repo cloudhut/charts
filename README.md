@@ -15,8 +15,8 @@ helm install -f values.yaml --name=kowl cloudhut/kowl
 | Parameter | Description | Default |
 | --- | --- | --- |
 | `replicaCount` | Number of Kowl replicas | `1` |
-| `global.imageRegistry` | Global Image Registry |` ` |
-| `image.registry` | Image Registry |`quay.io` |
+| `global.imageRegistry` | Global Image Registry | (none) |
+| `image.registry` | Image Registry | `quay.io` |
 | `image.repository` | Docker image repo | `/cloudhut/kowl` |
 | `image.pullPolicy` | Image pull policy | `IfNotPresent` |
 | `image.tag` | Image tag | `v1.2.2` (inherited) |
