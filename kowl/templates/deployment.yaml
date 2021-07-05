@@ -32,6 +32,9 @@ spec:
         - name: secrets
           secret:
             secretName: {{ include "kowl.secretName" . }}
+        {{- with .Values.extraVolumes }}
+        {{- tpl . $ | nindent 8 }}
+        {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           args:
@@ -58,6 +61,9 @@ spec:
             - name: secrets
               mountPath: /etc/kowl/secrets
               readOnly: true
+            {{- with .Values.extraVolumeMounts }}
+            {{- tpl . $ | nindent 12 }}
+            {{- end }}
           ports:
             - name: http
               containerPort: {{ include "kowl.serverListenPort" . }}
@@ -121,7 +127,6 @@ spec:
             {{- with .Values.extraEnvFrom }}
             {{- tpl . $ | nindent 12 }}
             {{- end }}
-
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
