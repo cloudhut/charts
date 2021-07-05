@@ -79,19 +79,19 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: {{ include "kowl.secretName" . }}
-                  key: kafka-sasl-password
+                  key: {{ get .Values.secret.keyName "kafka-sasl-password" }}
             - name: KAFKA_TLS_PASSPHRASE
               valueFrom:
                secretKeyRef:
                  name: {{ include "kowl.secretName" . }}
-                 key: kafka-tls-passphrase
+                 key: {{ get .Values.secret.keyName "kafka-tls-passphrase" }}
             {{- if eq .Values.image.repository "quay.io/cloudhut/kowl-business" }}
             {{- if not .Values.kowl.config.cloudhut }}
             - name: CLOUDHUT_LICENSE_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: {{ include "kowl.secretName" . }}
-                  key: cloudhut-license-token
+                  key: {{ get .Values.secret.keyName "cloudhut-license-token" }}
             {{- end }}
             - name: LOGIN_JWT_SECRET
               valueFrom:
@@ -113,6 +113,13 @@ spec:
                secretKeyRef:
                  name: {{ include "kowl.secretName" . }}
                  key: login-github-personal-access-token
+            {{- end }}
+            {{- with .Values.extraEnv }}
+            {{- tpl . $ | nindent 12 }}
+            {{- end }}
+          envFrom:
+            {{- with .Values.extraEnvFrom }}
+            {{- tpl . $ | nindent 12 }}
             {{- end }}
 
       {{- with .Values.nodeSelector }}
