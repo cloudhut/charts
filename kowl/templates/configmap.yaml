@@ -6,16 +6,16 @@ metadata:
     {{- include "kowl.labels" . | nindent 4 }}
 data:
   config.yaml: |
-    {{- toYaml .Values.kowl.config | nindent 4}}
+    {{- tpl (toYaml .Values.kowl.config) $ | nindent 4 }}
 
   {{- if .Values.kowl.roles }}
   roles.yaml: |
     roles:
-      {{- toYaml .Values.kowl.roles | nindent 6 }}
+      {{- tpl (toYaml .Values.kowl.config.roles) $ | nindent 6 }}
   {{- end }}
 
   {{- if .Values.kowl.roleBindings }}
   role-bindings.yaml: |
     roleBindings:
-      {{- toYaml .Values.kowl.roleBindings | nindent 6 }}
+      {{- tpl (toYaml .Values.kowl.config.roleBindings) $ | nindent 6 }}
   {{- end }}
