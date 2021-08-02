@@ -90,6 +90,19 @@ kowl:
   # roles:
   # roleBindings:
 
+# Additional environment variables for kowl
+extraEnv: ""
+  # - name: KAFKA_RACKID
+  #   value: "1"
+
+# Additional environment variables for kowl mapped from Secret or ConfigMap
+extraEnvFrom: ""
+
+# Add additional volumes, e. g. for tls keys
+extraVolumes: ""
+# Add additional volumes mounts, e. g. for tls keys
+extraVolumeMounts: ""
+
 secret:
   # existingSecret can be used if you create the secret with the needed key value pairs on your own. Specify the
   # secret name here and it will be used. Please make sure you specify all the below key names even if you don't need them.
@@ -107,6 +120,14 @@ secret:
   #  - login-github-oauth-client-secret
   #  - login-github-personal-access-token
   existingSecret:
+  # Alternative named for secret keys
+  # Keys for kafka-tls-ca, kafka-tls-cert and kafka-tls-key does not need to alter here. But additional env variables needs to be set like
+  # KAFKA_TLS_CAFILEPATH=/etc/kowl/secrets/<key-name>
+  keyName:
+    cloudhut-license-token: "cloudhut-license-token"
+    kafka-tls-passphrase: "kafka-tls-passphrase"
+    kafka-sasl-password: "kafka-sasl-password"
+
   # Secret values in case you want the chart to create a secret
   # Kafka secrets
   kafka: {}
