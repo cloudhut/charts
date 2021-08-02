@@ -7,7 +7,7 @@ This repository contains helm charts for all CloudHut products. As of now there'
 ```
 helm repo add cloudhut https://raw.githubusercontent.com/cloudhut/charts/master/archives
 helm repo update
-helm install -f values.yaml --name=kowl cloudhut/kowl
+helm install -f values.yaml kowl cloudhut/kowl
 ```
 
 ## Chart configuration
