@@ -46,6 +46,10 @@ helm install -f values.yaml --name=kowl cloudhut/kowl
 | `nodeSelector` | Node selector used in deployment | `{}` |
 | `tolerations` | Tolerations for tainted nodes | `[]` |
 | `affinity` | Pod (anti)affinities | `{}` |
+| `extraVolumes` | Add additional volumes, e. g. for tls keys | `""` |
+| `extraVolumeMounts` | Add additional volumes mounts, e. g. for tls keys | `""` |
+| `extraEnv` | Additional environment variables for kowl | `""` |
+| `extraEnvFrom` | Additional environment variables for kowl mapped from Secret or ConfigMap | `""` |
 | `kowl.config` | Kowl config content | `{}` |
 | `kowl.roles` | Kowl roles config content (business) | (none) |
 | `kowl.roleBindings` | Kowl rolebindings config content (business) | (none) |
@@ -56,11 +60,20 @@ helm install -f values.yaml --name=kowl cloudhut/kowl
 | `secret.kafka.tlsKey` | Kafka TLS key | (none) |
 | `secret.kafka.tlsPassphrase` | Kafka TLS passphrase | (none) |
 | `secret.cloudhut.licenseToken` | License token for Kowl business (business) | (none) |
+| `secret.keynames` | Alternative named for secret keys. Keys for kafka-tls-ca, kafka-tls-cert and kafka-tls-key does not need to alter here. | See values.yaml |
 | `login.google.clientSecret` | Google OAuth client secret (business) | (none) |
 | `login.github.clientSecret` | GitHub OAuth client secret (business) | (none) |
 | `login.github.personalAccessToken` | GitHub personal access token (business) | (none) |
 
 Further documentation can be found in the [examples](./examples).
+
+#### Usage of the tpl Function
+The tpl function allows us to pass string values from values.yaml through the templating engine. It is used for the following values:
+
+* extraEnv
+* extraEnvFrom
+* extraVolumes
+* extraVolumeMounts
 
 ### Kowl Config / Mounted secrets
 
