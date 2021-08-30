@@ -11,11 +11,11 @@ data:
   {{- if .Values.kowl.roles }}
   roles.yaml: |
     roles:
-      {{- tpl (toYaml .Values.kowl.config.roles) $ | nindent 6 }}
+      {{- tpl (toYaml .Values.kowl.roles) $ | nindent 6 }}
   {{- end }}
 
   {{- if .Values.kowl.roleBindings }}
   role-bindings.yaml: |
     roleBindings:
-      {{- tpl (toYaml .Values.kowl.config.roleBindings) $ | nindent 6 }}
+      {{- tpl (toYaml .Values.kowl.roleBindings) $ | nindent 6 }}
   {{- end }}
