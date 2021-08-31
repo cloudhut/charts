@@ -4,9 +4,8 @@ on:
   push:
     branches:
       - master
-# on:
-#   release:
-#     types: [published]
+    paths:
+      - 'kowl/Chart.yaml'
 
 jobs:
   release:
