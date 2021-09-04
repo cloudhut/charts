@@ -1,7 +1,7 @@
 image:
   registry: quay.io
   repository: cloudhut/kowl-business
-  tag: v1.1.0
+  tag: v1.4.0
 
 fullnameOverride: kowl-business
 
