@@ -29,6 +29,7 @@ helm install -f values.yaml kowl cloudhut/kowl
 | `podAnnotations` | Annotations to attach on Kowl pod | `{}` |
 | `podSecurityContext` | Pod Security Context | `{runAsUser: 99, fsGroup: 99}` |
 | `securityContext` | Container Security Context | `{runAsNonRoot: true}` |
+| `deployment.annotations` | Deployment annotations | `{}` |
 | `service.type` | Service type | `ClusterIP` |
 | `service.port` | Service port | `80` |
 | `service.type` | Annotations to attach to service | `{}` |
