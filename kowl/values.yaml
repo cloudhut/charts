@@ -122,6 +122,8 @@ secret:
   #  - login-google-groups-service-account.json
   #  - login-github-oauth-client-secret
   #  - login-github-personal-access-token
+  #  - login-okta-client-secret
+  #  - login-okta-directory-api-token
   existingSecret:
   # Alternative named for secret keys
   # Keys for kafka-tls-ca, kafka-tls-cert and kafka-tls-key does not need to alter here. But additional env variables needs to be set like

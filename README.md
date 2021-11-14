@@ -66,6 +66,8 @@ helm install -f values.yaml kowl cloudhut/kowl
 | `login.google.clientSecret` | Google OAuth client secret (business) | (none) |
 | `login.github.clientSecret` | GitHub OAuth client secret (business) | (none) |
 | `login.github.personalAccessToken` | GitHub personal access token (business) | (none) |
+| `login.okta.clientSecret` | Okta OAuth client secret (business) | (none) |
+| `login.okta.directoryApiToken` | Okta api token for directory API (business) | (none) |
 
 Further documentation can be found in the [examples](./examples).
 
