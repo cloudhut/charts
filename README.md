@@ -50,7 +50,7 @@ helm install -f values.yaml kowl cloudhut/kowl
 | `extraVolumeMounts` | Add additional volumes mounts, e. g. for tls keys | `""` |
 | `extraEnv` | Additional environment variables for kowl | `""` |
 | `extraEnvFrom` | Additional environment variables for kowl mapped from Secret or ConfigMap | `""` |
-|`extraContainers` | Add additional containers, e. g. for oauth2-proxy | `{}` |
+| `extraContainers` | Add additional containers, e. g. for oauth2-proxy | `{}` |
 | `kowl.config` | Kowl config content | `{}` |
 | `kowl.roles` | Kowl roles config content (business) | (none) |
 | `kowl.roleBindings` | Kowl rolebindings config content (business) | (none) |
