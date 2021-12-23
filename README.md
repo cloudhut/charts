@@ -68,6 +68,16 @@ helm install -f values.yaml kowl cloudhut/kowl
 | `login.github.personalAccessToken` | GitHub personal access token (business) | (none) |
 | `login.okta.clientSecret` | Okta OAuth client secret (business) | (none) |
 | `login.okta.directoryApiToken` | Okta api token for directory API (business) | (none) |
+| `livenessProbe.initialDelaySeconds` | Number of seconds after the container has started before liveness probe is initiated | `0` |
+| `livenessProbe.periodSeconds` | How often (in seconds) to perform the probe | `10` |
+| `livenessProbe.timeoutSeconds` | Number of seconds after which the probe times out | `1` |
+| `livenessProbe.successThreshold` | Minimum consecutive successes for the probe to be considered successful after having failed | `1` |
+| `livenessProbe.failureThreshold` | When a probe fails, Kubernetes will try failureThreshold times before giving up | `3` |
+| `readinessProbe.initialDelaySeconds` | Number of seconds after the container has started before readiness probe is initiated | `10` |
+| `readinessProbe.periodSeconds` | How often (in seconds) to perform the probe | `10` |
+| `readinessProbe.timeoutSeconds` | Number of seconds after which the probe times out | `1` |
+| `readinessProbe.successThreshold` | Minimum consecutive successes for the probe to be considered successful after having failed | `1` |
+| `readinessProbe.failureThreshold` | When a probe fails, Kubernetes will try failureThreshold times before giving up | `3` |
 
 Further documentation can be found in the [examples](./examples).
 
