@@ -1,0 +1,52 @@
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 10m
+    memory: 64Mi
+
+kowl:
+  # See reference config: https://github.com/cloudhut/kowl/blob/master/docs/config/kowl.yaml)
+  config:
+    kafka:
+      brokers:
+        - kafka-0.kafka-headless:9092
+        - kafka-1.kafka-headless:9092
+        - kafka-2.kafka-headless:9092
+
+extraContainers:
+  - name: oauth2-proxy
+    image: bitnami/oauth2-proxy
+    resources:
+      requests:
+        memory: "64Mi"
+        cpu: "20m"
+      limits:
+        memory: "256Mi"
+        cpu: "200m"
+    ports:
+      - containerPort: 4180
+        protocol: TCP
+    env:
+      - name: OAUTH2_PROXY_CLIENT_ID
+        valueFrom:
+          secretKeyRef:
+            name: oauth2proxy
+            key: client-id
+      - name: OAUTH2_PROXY_CLIENT_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: oauth2proxy
+            key: client-secret
+      - name: OAUTH2_PROXY_COOKIE_SECRET
+        valueFrom:
+          secretKeyRef:
+            name: oauth2proxy
+            key: cookie-secret
+    args:
+      - --provider=azure
+      - --email-domain=*
+      - --upstream=http://localhost:80/
+      - --http-address=0.0.0.0:4180
+      - --azure-tenant=520d7091-fbda-4516-8e71-cca8fc2f3f8e

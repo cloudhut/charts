@@ -106,6 +106,9 @@ extraVolumes: ""
 # Add additional volumes mounts, e. g. for tls keys
 extraVolumeMounts: ""
 
+# Add additional containers, e. g. for oauth2-proxy
+extraContainers: {}
+
 secret:
   # existingSecret can be used if you create the secret with the needed key value pairs on your own. Specify the
   # secret name here and it will be used. Please make sure you specify all the below key names even if you don't need them.
