@@ -47,6 +47,6 @@ extraContainers:
     args:
       - --provider=azure
       - --email-domain=*
-      - --upstream=http://localhost:80/
+      - --upstream=http://localhost:8080/
       - --http-address=0.0.0.0:4180
       - --azure-tenant=520d7091-fbda-4516-8e71-cca8fc2f3f8e

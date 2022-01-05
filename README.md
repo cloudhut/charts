@@ -32,6 +32,7 @@ helm install -f values.yaml kowl cloudhut/kowl
 | `service.type` | Service type | `ClusterIP` |
 | `service.port` | Service port | `80` |
 | `service.type` | Annotations to attach to service | `{}` |
+| `service.targetPort` | Internal service port | `http` |
 | `ingress.enabled` | Whether or not to deploy an ingress | `false` |
 | `ingress.annotations` | Ingress annotations | `{}` |
 | `ingress.hosts[0].host` | Ingress hostname | `chart-example.local` |
