@@ -44,6 +44,7 @@ service:
   type: ClusterIP
   port: 80
   annotations: {}
+  targetPort: http
 
 ingress:
   enabled: false
