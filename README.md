@@ -30,6 +30,7 @@ helm install -f values.yaml kowl cloudhut/kowl
 | `podSecurityContext` | Pod Security Context | `{runAsUser: 99, fsGroup: 99}` |
 | `securityContext` | Container Security Context | `{runAsNonRoot: true}` |
 | `service.type` | Service type | `ClusterIP` |
+| `service.targetPort` | Internal service port | `http` |
 | `service.port` | Service port | `80` |
 | `service.type` | Annotations to attach to service | `{}` |
 | `ingress.enabled` | Whether or not to deploy an ingress | `false` |
@@ -46,8 +47,8 @@ helm install -f values.yaml kowl cloudhut/kowl
 | `nodeSelector` | Node selector used in deployment | `{}` |
 | `tolerations` | Tolerations for tainted nodes | `[]` |
 | `affinity` | Pod (anti)affinities | `{}` |
-| `extraVolumes` | Add additional volumes, e. g. for tls keys | `""` |
-| `extraVolumeMounts` | Add additional volumes mounts, e. g. for tls keys | `""` |
+| `extraVolumes` | Add additional volumes, e. g. for tls keys | `[]` |
+| `extraVolumeMounts` | Add additional volumes mounts, e. g. for tls keys | `[]` |
 | `extraEnv` | Additional environment variables for kowl | `""` |
 | `extraEnvFrom` | Additional environment variables for kowl mapped from Secret or ConfigMap | `""` |
 | `extraContainers` | Add additional containers, e. g. for oauth2-proxy | `{}` |
