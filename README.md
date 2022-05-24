@@ -88,8 +88,6 @@ The tpl function allows us to pass string values from values.yaml through the te
 
 * extraEnv
 * extraEnvFrom
-* extraVolumes
-* extraVolumeMounts
 
 ### Kowl Config / Mounted secrets
 
