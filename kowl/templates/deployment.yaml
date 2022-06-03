@@ -44,6 +44,7 @@ spec:
             - "--config.filepath=/etc/kowl/configs/config.yaml"
             - "--kafka.sasl.password=$(KAFKA_SASL_PASSWORD)"
             - "--kafka.tls.passphrase=$(KAFKA_TLS_PASSPHRASE)"
+            - "--schema.registry.password=$(KAFKA_SCHEMA_PASSWORD)"
             {{- if eq .Values.image.repository "cloudhut/kowl-business" }}
             - "--login.jwt-secret=$(LOGIN_JWT_SECRET)"
             - "--login.google.client-secret=$(LOGIN_GOOGLE_CLIENT_SECRET)"
@@ -104,6 +105,11 @@ spec:
                secretKeyRef:
                  name: {{ include "kowl.secretName" . }}
                  key: {{ get .Values.secret.keyName "kafka-tls-passphrase" }}
+            - name: KAFKA_SCHEMA_PASSWORD
+              valueFrom:
+               secretKeyRef:
+                 name: {{ include "kowl.secretName" . }}
+                 key: {{ get .Values.secret.keyName "kafka-schema-registry-password" }}
             {{- if eq .Values.image.repository "cloudhut/kowl-business" }}
             {{- if not .Values.kowl.config.cloudhut }}
             - name: CLOUDHUT_LICENSE_TOKEN

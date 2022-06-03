@@ -61,10 +61,12 @@ helm install -f values.yaml kowl cloudhut/kowl
 | `secret.kafka.tlsCert` | Kafka TLS cert file | (none) |
 | `secret.kafka.tlsKey` | Kafka TLS key | (none) |
 | `secret.kafka.tlsPassphrase` | Kafka TLS passphrase | (none) |
+| `secret.kafka.schemaRegistryPassword` | Kafka schema registry password value | (none) |
 | `secret.cloudhut.licenseToken` | License token for Kowl business (business) | (none) |
 | `secret.keyname.cloudhut-license-token` | Secret key name for the cloudhut license token  | `cloudhut-license-token` |
 | `secret.keyname.kafka-tls-passphrase` | Secret key name for the TLS passphrase  | `kafka-tls-passphrase` |
 | `secret.keyname.kafka-sasl-password` | Secret key name for the SASL password  | `kafka-sasl-password` |
+| `secret.keyname.kafka-schema-registry-password` | Secret key name for the schema registry password  | `kafka-schema-registry-password` |
 | `login.google.clientSecret` | Google OAuth client secret (business) | (none) |
 | `login.github.clientSecret` | GitHub OAuth client secret (business) | (none) |
 | `login.github.personalAccessToken` | GitHub personal access token (business) | (none) |
