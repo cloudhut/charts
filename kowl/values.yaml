@@ -120,6 +120,7 @@ secret:
   #  - kafka-tls-cert
   #  - kafka-tls-key
   #  - kafka-tls-passphrase
+  #  - kafka-schema-registry-password
   #  - cloudhut-license-token
   #  - login-jwt-secret (used for signing and validating JWT)
   #  - login-google-oauth-client-secret
@@ -136,6 +137,7 @@ secret:
     cloudhut-license-token: "cloudhut-license-token"
     kafka-tls-passphrase: "kafka-tls-passphrase"
     kafka-sasl-password: "kafka-sasl-password"
+    kafka-schema-registry-password: "kafka-schema-registry-password"
 
   # Secret values in case you want the chart to create a secret
   # Kafka secrets
@@ -145,6 +147,7 @@ secret:
     # tlsCert:
     # tlsKey:
     # tlsPassphrase:
+    # schemaRegistryPassword:
   # CloudHut secrets (business version)
   cloudhut: {}
     # licenseToken:
