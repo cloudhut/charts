@@ -26,6 +26,7 @@ serviceAccount:
   name: ""
 
 podAnnotations: {}
+podLabels: {}
 
 podSecurityContext:
   runAsUser: 99
@@ -109,6 +110,9 @@ extraVolumeMounts: ""
 
 # Add additional containers, e. g. for oauth2-proxy
 extraContainers: {}
+
+# Add init containers
+initContainers: {}
 
 secret:
   # existingSecret can be used if you create the secret with the needed key value pairs on your own. Specify the
