@@ -4,6 +4,13 @@ metadata:
   name: {{ include "kowl.fullname" . }}
   labels:
     {{- include "kowl.labels" . | nindent 4 }}
+    {{- if .Values.deploymentLabels -}}
+    {{ toYaml .Values.deploymentLabels | nindent 4 }}
+    {{- end }}
+  annotations:
+    {{- if .Values.deploymentAnnotations -}}
+    {{ toYaml .Values.deploymentAnnotations | nindent 4 }}
+    {{- end }}
 spec:
 {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
