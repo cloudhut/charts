@@ -28,6 +28,8 @@ helm install -f values.yaml kowl cloudhut/kowl
 | `serviceAccount.name` | Service Account Name | (none / generated if create is true) |
 | `podAnnotations` | Annotations to attach on Kowl pod | `{}` |
 | `podLabels` | Labels to attach on Kowl pod | `{}` |
+| `deploymentAnnotations` | Annotations to attach on Kowl deployment | `{}` |
+| `deploymentLabels` | Labels to attach on Kowl deployment | `{}` |
 | `podSecurityContext` | Pod Security Context | `{runAsUser: 99, fsGroup: 99}` |
 | `securityContext` | Container Security Context | `{runAsNonRoot: true}` |
 | `service.type` | Service type | `ClusterIP` |
