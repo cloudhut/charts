@@ -1,5 +1,10 @@
 # Helm Charts
 
+:warning: __*WARNING*__: This chart repo has been deprecated.
+See [redpanda-data/helm-charts](https://github.com/redpanda-data/helm-charts) for continued development.
+
+---
+
 This repository contains helm charts for all CloudHut products. As of now there's only the Kowl helm chart which is documented below.
 
 ## Installing the helm chart
