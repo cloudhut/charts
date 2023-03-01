@@ -32,6 +32,9 @@ helm install -f values.yaml kowl cloudhut/kowl
 | `serviceAccount.annotations` | Annotations for new service account | `{}` |
 | `serviceAccount.name` | Service Account Name | (none / generated if create is true) |
 | `podAnnotations` | Annotations to attach on Kowl pod | `{}` |
+| `podLabels` | Labels to attach on Kowl pod | `{}` |
+| `deploymentAnnotations` | Annotations to attach on Kowl deployment | `{}` |
+| `deploymentLabels` | Labels to attach on Kowl deployment | `{}` |
 | `podSecurityContext` | Pod Security Context | `{runAsUser: 99, fsGroup: 99}` |
 | `securityContext` | Container Security Context | `{runAsNonRoot: true}` |
 | `service.type` | Service type | `ClusterIP` |
@@ -57,6 +60,7 @@ helm install -f values.yaml kowl cloudhut/kowl
 | `extraEnv` | Additional environment variables for kowl | `""` |
 | `extraEnvFrom` | Additional environment variables for kowl mapped from Secret or ConfigMap | `""` |
 | `extraContainers` | Add additional containers, e. g. for oauth2-proxy | `{}` |
+| `initContainers` | Add init containers to deployment | `{}` |
 | `kowl.config` | Kowl config content | `{}` |
 | `kowl.roles` | Kowl roles config content (business) | (none) |
 | `kowl.roleBindings` | Kowl rolebindings config content (business) | (none) |

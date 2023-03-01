@@ -25,7 +25,11 @@ serviceAccount:
   # If not set and create is true, a name is generated using the fullname template
   name: ""
 
+deploymentLabels: {}
+deploymentAnnotations: {}
+
 podAnnotations: {}
+podLabels: {}
 
 podSecurityContext:
   runAsUser: 99
@@ -109,6 +113,9 @@ extraVolumeMounts: ""
 
 # Add additional containers, e. g. for oauth2-proxy
 extraContainers: {}
+
+# Add init containers
+initContainers: {}
 
 secret:
   # existingSecret can be used if you create the secret with the needed key value pairs on your own. Specify the
